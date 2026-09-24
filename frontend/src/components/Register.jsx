@@ -11,7 +11,8 @@ const Register = () => {
     lastname : '',
     email : '',
     mobilenumber : '',
-    password : ''
+    password : '',
+    repeatpassword : ''
   })
 
   const handleChange = (e) =>{
@@ -26,14 +27,40 @@ const Register = () => {
     const {firstname, lastname, email, mobilenumber, password, repeatpassword} = formData;
 
     if(password !== repeatpassword){
-      toast.error();
+      toast.error('Password and Confirm Password do not match');
       return;
     }
+    try{
+      const response = await fetch('http://127.0.0.1:8000/api/register/',{
+        method:'POST',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify({firstname, lastname, email, mobilenumber, password})
+      });
+      const result = await response.json();
+      if(response.status === 201){
+        toast.success(result.message || 'You have successfully registered!');
+        setFormData({
+          firstname : '',
+          lastname : '',
+          email : '',
+          mobilenumber : '',
+          password : '',
+          repeatpassword : ''
+        });
+      }else{
+        toast.error(result.message || 'Something went wrong');
+      }
+    }
+    catch(error){
+      console.error(error);
+      toast.error("Error connecting to server");
+    }
     
-  }
+  };
 
   return (
     <PublicLayout>
+      <ToastContainer />
       <div className='container py-5'>
         <div className='row shadow-lg rounded-4'>
           <div className='col-md-6 p-4'>
@@ -54,10 +81,10 @@ const Register = () => {
                 <input name='mobilenumber' type='text' className='form-control' value={formData.mobilenumber} onChange={handleChange} placeholder='Mobile Number' />
               </div>
               <div className='mb-3'>
-                <input name='password' type='text' className='form-control' value={formData.password} onChange={handleChange} placeholder='Password' />
+                <input name='password' type='password' className='form-control' value={formData.password} onChange={handleChange} placeholder='Password' />
               </div>
               <div className='mb-3'>
-                <input name='repeatpassword' type='text' className='form-control' value={formData.repeatpassword} onChange={handleChange} placeholder='Repeat Password' />
+                <input name='repeatpassword' type='password' className='form-control' value={formData.repeatpassword} onChange={handleChange} placeholder='Repeat Password' />
               </div>
               <button className='btn btn-primary w-100'>
                 <i className='fas fa-user-check me-2'></i>Submit
