@@ -37,7 +37,7 @@ const Register = () => {
             </h3>
             <form onSubmit={handleSubmit}>
               <div className='mb-3'>
-                <input name='firstname' type='text' className='form-control' value={formData.firstname} onChange={handleChange} placeholder='First Name to enter value' />
+                <input name='firstname' type='text' className='form-control' value={formData.firstname} onChange={handleChange} placeholder='First Name' />
               </div>
               <div className='mb-3'>
                 <input name='lastname' type='text' className='form-control' value={formData.lastname} onChange={handleChange} placeholder='Last Name' />
