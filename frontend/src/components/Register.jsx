@@ -13,7 +13,10 @@ const Register = () => {
     mobilenumber : '',
     password : '',
     repeatpassword : ''
-  })
+  });
+  setTimeout(() => {
+    navigate('/login')
+  }, 2000);
 
   const handleChange = (e) =>{
     const { name, value } = e.target;
