@@ -54,7 +54,6 @@ const PublicLayout = ({ children }) => {
                   <li className="nav-item mx-1">
                     <Link className="nav-link" to="#"><FaUserShield className="me-1" />Admin</Link>
                   </li>
-
                 </>
               ) : (
                 <li className="nav-item mx-1">
@@ -62,8 +61,6 @@ const PublicLayout = ({ children }) => {
                 </li>
               )
               }
-
-
             </ul>
           </div>
         </div>
