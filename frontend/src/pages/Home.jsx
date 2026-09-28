@@ -13,7 +13,7 @@ const Home = () => {
       .then(data => {
         setFoods(data)
       })
-  },[]);
+  }, []);
   return (
     <PublicLayout>
       <section className="hero py-5 text-center" style={{ backgroundImage: "url('/images/extras/banner-1.webp')" }}>
@@ -50,7 +50,7 @@ const Home = () => {
                       <div className='d-flex justify-content-between align-items-center'>
                         <span className='fw-bold'>RS {food.item_price}</span>
                         {food.is_available ? (
-                          <Link to="" className='btn btn-outline-primary btn-sm'>
+                          <Link to={`/food/${food.id}`} className='btn btn-outline-primary btn-sm'>
                             <i className='fas fa-shopping-basket me-1'></i>Order Now
                           </Link>
                         ) : (
@@ -70,6 +70,33 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      <section className='py-5 bg-dark text-white'>
+        <div className='container text-center'>
+          <h2>Ordering in simple 3 steps</h2>
+          <div className='row mt-4'>
+            <div className='col-md-4'>
+              <h4>1. Pick a Dish you love</h4>
+              <p>Explore hundred of mouth-watering options and choose what you crave!</p>
+            </div>
+            <div className='col-md-4'>
+              <h4>2. Share your location</h4>
+              <p>Tell us where you are, and we'll handle the rest</p>
+            </div>
+            <div className='col-md-4'>
+              <h4>3. Enjoy doorstep delivery</h4>
+              <p>Relax while your meal arrives fast and fresh - pay when it's delivered!</p>
+            </div>
+          </div>
+          <p>Pay easily with cash on delivery - hassle-free!</p>
+        </div>
+      </section>
+
+      <section className='py-5 bg-warning text-center text-dark'>
+        <h4>Ready to Satisfy Your Hunger?</h4>
+        <Link to="" className='btn btn-dark btn-lg'>Browse Full Menu</Link>
+      </section>
+
     </PublicLayout>
   )
 }

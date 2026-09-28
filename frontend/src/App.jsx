@@ -24,6 +24,7 @@ function App() {
         <Route path='/search' element={<SearchPage/>}></Route>
         <Route path='/register' element={<Register/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
+        <Route path='/food/:id' element={<Login/>}></Route>
       </Routes>
     </BrowserRouter>
   );

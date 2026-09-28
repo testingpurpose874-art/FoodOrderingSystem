@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaHome, FaSignInAlt, FaTruck, FaUserShield, FaUtensils } from "react-icons/fa";
+import { FaCogs, FaHeart, FaHome, FaShoppingCart, FaSignInAlt, FaTruck, FaUser, FaUserCircle, FaUserShield, FaUtensils } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import "../assets/styles/layout.css";
 
@@ -56,9 +56,28 @@ const PublicLayout = ({ children }) => {
                   </li>
                 </>
               ) : (
-                <li className="nav-item mx-1">
-                  <Link className="nav-link" to="#"><FaUserShield className="me-1" />{userName}</Link>
-                </li>
+                <>
+                  <li className="nav-item mx-1">
+                    <Link className="nav-link" to="#"><FaUser className="me-1" />My Orders</Link>
+                  </li>
+                  <li className="nav-item mx-1">
+                    <Link className="nav-link" to="#"><FaShoppingCart className="me-1" />Cart</Link>
+                  </li>
+                  <li className="nav-item mx-1">
+                    <Link className="nav-link" to="#"><FaHeart className="me-1" />Wishlist</Link>
+                  </li>
+                  <li className="nav-item dropdown">
+                    <a className="nav-link dropdown-toggle text-capitalize" to="#" role="button" data-bs-toggle="dropdown">
+                      <FaUserCircle className="me-1" /> {userName}
+                    </a>
+                    <ul className="dropdown-menu">
+                      <li><Link className="dropdown-item" to="#"><FaUser className="me-1" />Profile</Link></li>
+                      <li><Link className="dropdown-item" to="#"><FaCogs className="me-1" />Settings</Link></li>
+                      <li><hr className="dropdown-divider" /></li>
+                      <li><button className="dropdown-item" onClick={handleLogout}><FaSignInAlt className="me-1" />Logout</button></li>
+                    </ul>
+                  </li>
+                </>
               )
               }
             </ul>
@@ -71,7 +90,6 @@ const PublicLayout = ({ children }) => {
       <footer className="text-center py-3 mt-5">
         <div className="container">
           <p>&copy; 2026 Food Ordering System. All rights reserved</p>
-          <p>here is the username: </p>
         </div>
       </footer>
     </div>
