@@ -7,58 +7,59 @@ import { useNavigate } from 'react-router-dom';
 const Register = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    firstname : '',
-    lastname : '',
-    email : '',
-    mobilenumber : '',
-    password : '',
-    repeatpassword : ''
+    firstname: '',
+    lastname: '',
+    email: '',
+    mobilenumber: '',
+    password: '',
+    repeatpassword: ''
   });
-  setTimeout(() => {
-    navigate('/login')
-  }, 2000);
 
-  const handleChange = (e) =>{
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev)=>({
-      ...prev,[name]:value
+    setFormData((prev) => ({
+      ...prev, [name]: value
     }));
   }
 
-  const handleSubmit = async(e) =>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const {firstname, lastname, email, mobilenumber, password, repeatpassword} = formData;
+    const { firstname, lastname, email, mobilenumber, password, repeatpassword } = formData;
 
-    if(password !== repeatpassword){
+    if (password !== repeatpassword) {
       toast.error('Password and Confirm Password do not match');
       return;
     }
-    try{
-      const response = await fetch('http://127.0.0.1:8000/api/register/',{
-        method:'POST',
-        headers: {'Content-Type' : 'application/json'},
-        body: JSON.stringify({firstname, lastname, email, mobilenumber, password})
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/register/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstname, lastname, email, mobilenumber, password })
       });
       const result = await response.json();
-      if(response.status === 201){
+      if (response.status === 201) {
         toast.success(result.message || 'You have successfully registered!');
         setFormData({
-          firstname : '',
-          lastname : '',
-          email : '',
-          mobilenumber : '',
-          password : '',
-          repeatpassword : ''
+          firstname: '',
+          lastname: '',
+          email: '',
+          mobilenumber: '',
+          password: '',
+          repeatpassword: ''
         });
-      }else{
+        setTimeout(() => {
+          navigate('/login')
+        }, 2000);
+      } else {
         toast.error(result.message || 'Something went wrong');
       }
     }
-    catch(error){
+    catch (error) {
       console.error(error);
       toast.error("Error connecting to server");
     }
-    
+
   };
 
   return (
@@ -96,7 +97,7 @@ const Register = () => {
           </div>
           <div className='col-md-6 d-flex align-items-center justify-content-center'>
             <div className='p-4 text-center'>
-              <img src='/images/extras/registration.webp' className='img-fluid' style={{maxHeight:"400px"}} />
+              <img src='/images/extras/registration.webp' className='img-fluid' style={{ maxHeight: "400px" }} />
               <h5 className='mt-3'>Registration is fast, secure and free.</h5>.
               <p className='text-muted small'>Join our food family and enjoy delicious food delivered to your door!</p>
             </div>

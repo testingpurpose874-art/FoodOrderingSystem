@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaHome, FaSignInAlt, FaTruck, FaUserShield, FaUtensils } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../assets/styles/layout.css";
 
 const PublicLayout = ({children}) => {
+  const navigate = useNavigate();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState("");
+
+  const userId = localStorage.getItem("userId");
+  const name = localStorage.getItem("userName");
+
+  useEffect(()=>{
+    setIsLoggedIn(true);
+    setUserName(name);
+  },[userId])
+
+  const handleLogout = () =>{
+    localStorage.removeItem(userId);
+    localStorage.removeItem(userName);
+  }
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -32,6 +50,10 @@ const PublicLayout = ({children}) => {
               <li className="nav-item mx-1">
                 <Link className="nav-link" to="#"><FaUserShield className="me-1" />Admin</Link>
               </li>
+              <li className="nav-item mx-1">
+                <Link className="nav-link" to="#"><FaUserShield className="me-1" />{userName}</Link>
+              </li>
+              
             </ul>
           </div>
         </div>
@@ -42,6 +64,7 @@ const PublicLayout = ({children}) => {
       <footer className="text-center py-3 mt-5">
         <div className="container">
           <p>&copy; 2026 Food Ordering System. All rights reserved</p>
+          <p>here is the username: </p>
         </div>
       </footer>
     </div>

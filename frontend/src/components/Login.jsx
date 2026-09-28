@@ -9,7 +9,7 @@ const Login = () => {
   const [formData, setFormData] = useState({
     emailcont: '',
     password: ''
-  })
+  });
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -35,7 +35,7 @@ const Login = () => {
         toast.success(result.message || 'Login Successful');
         localStorage.setItem('userId', result.userId);
         localStorage.setItem('userName', result.userName);
-        formData({
+        setFormData({
           emailcont: '',
           password: ''
         });
@@ -63,7 +63,7 @@ const Login = () => {
             <form className='card p-4 shadow' onSubmit={handleSubmit}>
 
               <div className='mb-3'>
-                <input name='emailcont' type='text' className='form-control' value={formData.email} onChange={handleChange} placeholder='Email or mobile number' />
+                <input name='emailcont' type='text' className='form-control' value={formData.emailcont} onChange={handleChange} placeholder='Email or mobile number' />
               </div>
               <div className='mb-3'>
                 <input name='password' type='password' className='form-control' value={formData.password} onChange={handleChange} placeholder='Password' />
