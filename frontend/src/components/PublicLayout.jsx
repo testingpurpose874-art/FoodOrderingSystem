@@ -3,7 +3,7 @@ import { FaHome, FaSignInAlt, FaTruck, FaUserShield, FaUtensils } from "react-ic
 import { Link, useNavigate } from "react-router-dom";
 import "../assets/styles/layout.css";
 
-const PublicLayout = ({children}) => {
+const PublicLayout = ({ children }) => {
   const navigate = useNavigate();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,14 +12,16 @@ const PublicLayout = ({children}) => {
   const userId = localStorage.getItem("userId");
   const name = localStorage.getItem("userName");
 
-  useEffect(()=>{
+  useEffect(() => {
     setIsLoggedIn(true);
     setUserName(name);
-  },[userId])
+  }, [userId])
 
-  const handleLogout = () =>{
-    localStorage.removeItem(userId);
-    localStorage.removeItem(userName);
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userName");
+    setIsLoggedIn(false);
+    navigate('/login');
   }
 
   return (
@@ -41,19 +43,27 @@ const PublicLayout = ({children}) => {
               <li className="nav-item mx-1">
                 <Link className="nav-link" to="#"><FaTruck className="me-1" />Track</Link>
               </li>
-              <li className="nav-item mx-1">
-                <Link className="nav-link" to="/register"><FaSignInAlt className="me-1" />Register</Link>
-              </li>
-              <li className="nav-item mx-1">
-                <Link className="nav-link" to="/login"><FaSignInAlt className="me-1" />Login</Link>
-              </li>
-              <li className="nav-item mx-1">
-                <Link className="nav-link" to="#"><FaUserShield className="me-1" />Admin</Link>
-              </li>
-              <li className="nav-item mx-1">
-                <Link className="nav-link" to="#"><FaUserShield className="me-1" />{userName}</Link>
-              </li>
-              
+              {!isLoggedIn ? (
+                <>
+                  <li className="nav-item mx-1">
+                    <Link className="nav-link" to="/register"><FaSignInAlt className="me-1" />Register</Link>
+                  </li>
+                  <li className="nav-item mx-1">
+                    <Link className="nav-link" to="/login"><FaSignInAlt className="me-1" />Login</Link>
+                  </li>
+                  <li className="nav-item mx-1">
+                    <Link className="nav-link" to="#"><FaUserShield className="me-1" />Admin</Link>
+                  </li>
+
+                </>
+              ) : (
+                <li className="nav-item mx-1">
+                  <Link className="nav-link" to="#"><FaUserShield className="me-1" />{userName}</Link>
+                </li>
+              )
+              }
+
+
             </ul>
           </div>
         </div>
