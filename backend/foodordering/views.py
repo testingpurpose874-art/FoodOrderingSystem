@@ -103,3 +103,15 @@ def food_detail(request,id):
   food = get_object_or_404(Food,id=id)
   serializer = FoodSerializer(food)
   return Response(serializer.data)
+
+@api_view(['POST'])
+def add_to_cart(request):
+  user_id = request.data.get('userId')
+  food_id = request.data.get('foodId')
+  try:
+    user = User.objects.get(id=user_id)
+    food = Food.objects.get(id=food_id)
+
+    Order.objects.get_or_create()
+  except:
+    

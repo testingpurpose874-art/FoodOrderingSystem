@@ -7,6 +7,7 @@ import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css'
 
 const FoodDetail = () => {
+  const navigate = useNavigate();
   const userId = localStorage.getItem('userId');
   const [food, setFood] = useState(null);
   const { id } = useParams();
@@ -18,6 +19,33 @@ const FoodDetail = () => {
         setFood(data)
       })
   })
+
+  const handleAddToCart = async() =>{
+    if(!userId){
+      navigate('/login')
+    }
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/cart/add/',{
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: userId,
+          foodId: food.id
+        })
+      });
+      const result = await response.json();
+
+      if(response.status === 200){
+        toast.success(result.message || 'Item added to cart');
+      }else{
+        toast.error(result.message || 'Something went wrong');
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Error connecting to server");
+      
+    }
+  }
 
   if (!food) return <div>Loading...</div>
   return (
@@ -36,7 +64,7 @@ const FoodDetail = () => {
             <h4>RS {food.item_price}</h4>
             <p className='mt-3'>Shipping: <strong>Free</strong></p>
             {food.is_available ? (
-              <button className='btn btn-warning btn-sm d-inline-flex justify-content-center align-items-center gap-2'>
+              <button className='btn btn-warning btn-sm d-inline-flex justify-content-center align-items-center gap-2' onClick={handleAddToCart}>
                 <FaCartPlus />Add To Cart
               </button>
             ) : (
@@ -52,5 +80,4 @@ const FoodDetail = () => {
     </PublicLayout>
   )
 }
-// now from 33 to now
 export default FoodDetail;
