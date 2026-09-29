@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PublicLayout from '../components/PublicLayout';
 import "../assets/styles/home.css";
 import { Link } from 'react-router-dom';
+import { FaShoppingBasket } from 'react-icons/fa';
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 const Home = () => {
@@ -50,8 +51,8 @@ const Home = () => {
                       <div className='d-flex justify-content-between align-items-center'>
                         <span className='fw-bold'>RS {food.item_price}</span>
                         {food.is_available ? (
-                          <Link to={`/food/${food.id}`} className='btn btn-outline-primary btn-sm'>
-                            <i className='fas fa-shopping-basket me-1'></i>Order Now
+                          <Link to={`/food/${food.id}`} className='btn btn-outline-primary btn-sm d-flex justify-content-center align-items-center'>
+                            <FaShoppingBasket className='me-1' />Order Now
                           </Link>
                         ) : (
                           <div title='This food item is not available right now. Please try again later'>

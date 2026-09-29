@@ -96,3 +96,10 @@ def login_user(request):
       return Response({"message":"Invalid Credentials"},status=401)
   except:
     return Response({"message":"Invalid Credentials"},status=401)
+
+from django.shortcuts import get_object_or_404
+@api_view(['GET'])
+def food_detail(request,id):
+  food = get_object_or_404(Food,id=id)
+  serializer = FoodSerializer(food)
+  return Response(serializer.data)
