@@ -52,5 +52,5 @@ const FoodDetail = () => {
     </PublicLayout>
   )
 }
-// now from 33
+// now from 33 to now
 export default FoodDetail;
