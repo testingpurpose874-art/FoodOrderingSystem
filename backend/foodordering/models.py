@@ -37,7 +37,7 @@ class Order(models.Model):
   food = models.ForeignKey(Food,on_delete=models.CASCADE)
   quantity = models.PositiveIntegerField(default=1)
   is_order_placed = models.BooleanField(default=False)
-  order_number = models.CharField(max_length=100)
+  order_number = models.CharField(max_length=100,null=True)
 
   def __str__(self):
     return f"{self.order_number} ({self.user})"

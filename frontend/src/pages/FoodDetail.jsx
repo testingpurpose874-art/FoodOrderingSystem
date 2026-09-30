@@ -5,6 +5,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { FaCartPlus } from 'react-icons/fa';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FoodDetail = () => {
   const navigate = useNavigate();
@@ -18,11 +20,12 @@ const FoodDetail = () => {
       .then(data => {
         setFood(data)
       })
-  })
+  },[id])
 
   const handleAddToCart = async() =>{
     if(!userId){
       navigate('/login')
+      return
     }
     try {
       const response = await fetch('http://127.0.0.1:8000/api/cart/add/',{
@@ -50,6 +53,7 @@ const FoodDetail = () => {
   if (!food) return <div>Loading...</div>
   return (
     <PublicLayout>
+      <ToastContainer position='top-right' autoClose={2000} />
       <div className='container py-5'>
         <div className='row'>
           <div className='col-md-5 text-center'>

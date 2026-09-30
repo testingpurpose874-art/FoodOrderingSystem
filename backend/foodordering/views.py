@@ -108,10 +108,42 @@ def food_detail(request,id):
 def add_to_cart(request):
   user_id = request.data.get('userId')
   food_id = request.data.get('foodId')
+
+  # print("USER ID:", user_id)
+  # print("FOOD ID:", food_id)
+  
   try:
     user = User.objects.get(id=user_id)
     food = Food.objects.get(id=food_id)
 
-    Order.objects.get_or_create()
+    order,created = Order.objects.get_or_create(
+      user = user,
+      food = food,
+      is_order_placed=False,
+      # quantity = 1,
+      defaults={'quantity':1}
+    )
+    if not created:
+      order.quantity += 1
+      order.save()
+
+    return Response({"message":"Food added to cart successfully"},status=200)
+  
+  # except User.DoesNotExist:
+  #       return Response({
+  #           "message": f"User with id {user_id} does not exist"
+  #       }, status=404)
+
+  # except Food.DoesNotExist:
+  #     return Response({
+  #         "message": f"Food with id {food_id} does not exist"
+  #     }, status=404)
+
+  # except Exception as e:
+  #         print("ERROR:", str(e))
+  #         return Response({
+  #             "message": str(e)
+  #         }, status=500)
+
   except:
-    
+    return Response({"message":"Something went wrong"},status=404)
