@@ -153,3 +153,4 @@ def get_cart_items(request, user_id):
   orders = Order.objects.filter(user_id=user_id,is_order_placed=False).select_related('food')
   serializer = CartOrderSerializer(orders,many=True)
   return Response(serializer.data)
+this
