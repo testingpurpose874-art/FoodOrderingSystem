@@ -19,7 +19,9 @@ const Cart = () => {
     fetch(`http://127.0.0.1:8000/api/cart/${userId}`)
     .then(res => res.json())
     .then(data => {
-      setCartItems(data)
+      setCartItems(data);
+      const total = data.reduce((sum,item)=> sum + item.food.item_price * quantity,0);
+      setGrandTotal(total);
     })
   },[])
 
