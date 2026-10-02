@@ -149,8 +149,10 @@ def add_to_cart(request):
     return Response({"message":"Something went wrong"},status=404)
 
 from .serializers import CartOrderSerializer
+@api_view(['GET'])
 def get_cart_items(request, user_id):
   orders = Order.objects.filter(user_id=user_id,is_order_placed=False).select_related('food')
   serializer = CartOrderSerializer(orders,many=True)
   return Response(serializer.data)
-  # MORE TO VIEW
+  
+
