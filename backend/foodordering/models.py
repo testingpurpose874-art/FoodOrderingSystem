@@ -73,4 +73,17 @@ class PaymentDetail(models.Model):
   card_number = models.CharField(max_length=20,null=True,blank=True)
   expiry_date = models.CharField(max_length=10,auto_now_add=True,null=True,blank=True)
   cvv = models.CharField(max_length=5,null=True,blank=True)
+  payment_date = models.DateTimeField(auto_now_add=True)
 
+  def __str__(self):
+    return f"{self.order_number} - {self.payment_mode}"
+
+class Review(models.Model):
+  user = models.ForeignKey(User,on_delete=models.CASCADE)
+  food = models.ForeignKey(Food,on_delete=models.CASCADE)
+  rating = models.PositiveIntegerField(default=1)
+  comment = models.TextField(null=True)
+  created_at = models.DateTimeField(auto_now_add=True)
+
+  def __str__(self):
+    return f"Review by{self.user.first_name} for {self.food.item_name} - {self.rating} stars"
