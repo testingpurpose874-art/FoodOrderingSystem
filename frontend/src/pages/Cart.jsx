@@ -24,7 +24,27 @@ const Cart = () => {
         const total = data.reduce((sum, item) => sum + item.food.item_price * item.quantity, 0);
         setGrandTotal(total);
       })
-  }, [])
+  }, [userId]);
+
+  const updateQuantity = async(orderId, newQty)=>{
+    if(newQty < 1) return;
+
+    try{
+      response = await fetch('http://127.0.0.1:8000/api/cart/update_quantity/',{
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          orderId: orderId,
+          quantity: newQty
+        })
+      });
+
+      const result = await response.json();
+
+      
+
+    }
+  }
 
   return (
     <PublicLayout>
@@ -51,11 +71,11 @@ const Cart = () => {
                             <p className='card-text text-muted small'>{item.food.item_description}</p>
                             <p className='fw-bold text-success'>{item.food.item_price}</p>
                             <div className='d-flex align-items-center mb-2'>
-                              <button className='btn btn-sm btn-outline-secondary me-2' disabled={item.quantity<=1}>
+                              <button className='btn btn-sm btn-outline-secondary me-2' disabled={item.quantity<=1} onClick={()=>updateQuantity(item.id,item.quantity-1)}>
                                 <FaMinus/>
                               </button>
                               <span className='fw-bold px-2'>{item.quantity}</span>
-                              <button className='btn btn-sm btn-outline-secondary me-2'>
+                              <button className='btn btn-sm btn-outline-secondary me-2' onClick={()=>updateQuantity(item.id,item.quantity+1)}>
                                 <FaPlus/>
                               </button>
                             </div>
@@ -69,6 +89,18 @@ const Cart = () => {
                   </div>
               ))}
             </div>
+
+            <div className='card p-4 mt-4 shadow-sm border-0'>
+              <h4 className='text-end'>
+                Total: RS {grandTotal.toFixed(2)}
+              </h4>
+              <div className='text-end'>
+                <button className='btn btn-primary mt-3 px-4 py-2'>
+                  <FaShoppingCart className='me-2'/>Proceed to Payment
+                </button>
+              </div>
+            </div>
+
           </>
         )}
       </div>
