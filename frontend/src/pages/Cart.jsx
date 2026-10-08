@@ -39,9 +39,13 @@ const Cart = () => {
         })
       });
 
-      const result = await response.json();
-
-      
+      if(response.status === 200){
+        const updated = await fetch(`http://127.0.0.1:8000/api/cart/${userId}`);
+        const data = await updated.json();
+        setCartItems(data);
+        const total = data.reduce((sum, item) => sum + item.food.item_price * item.quantity, 0);
+        setGrandTotal(total);
+      }
 
     }
   }
