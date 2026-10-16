@@ -1,36 +1,24 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
-import AddCategory from './pages/AddCategory';
-import ManageCategory from './pages/ManageCategory';
-import AddFood from './pages/AddFood';
-import ManageFood from './pages/ManageFood';
-import SearchPage from './pages/SearchPage';
-import Register from './components/Register';
-import Login from './components/Login';
-import FoodDetail from './pages/FoodDetail';
-import Cart from './pages/Cart';
+import React from 'react'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './route/router'
+import 'react-quill/dist/quill.snow.css';
+import 'react-circular-progressbar/dist/styles.css';
+import "react-perfect-scrollbar/dist/css/styles.css";
+import "react-datepicker/dist/react-datepicker.css";
+import "react-datetime/css/react-datetime.css";
+import NavigationProvider from './contentApi/navigationProvider';
+import SideBarToggleProvider from './contentApi/sideBarToggleProvider';
 
-function App() {
+const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home/>}></Route>
-        <Route path='/admin-login' element={<AdminLogin/>}></Route>
-        <Route path='/admin-dashboard' element={<AdminDashboard/>}></Route>
-        <Route path='/add-category' element={<AddCategory/>}></Route>
-        <Route path='/manage-category' element={<ManageCategory/>}></Route>
-        <Route path='/add-food' element={<AddFood/>}></Route>
-        <Route path='/manage-food' element={<ManageFood/>}></Route>
-        <Route path='/search' element={<SearchPage/>}></Route>
-        <Route path='/register' element={<Register/>}></Route>
-        <Route path='/login' element={<Login/>}></Route>
-        <Route path='/food/:id' element={<FoodDetail/>}></Route>
-        <Route path='/cart' element={<Cart/>}></Route>
-      </Routes>
-    </BrowserRouter>
-  );
+    <>
+      <NavigationProvider>
+        <SideBarToggleProvider>
+          <RouterProvider router={router} />
+        </SideBarToggleProvider>
+      </NavigationProvider>
+    </>
+  )
 }
 
-export default App;
+export default App
