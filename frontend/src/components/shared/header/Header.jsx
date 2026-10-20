@@ -1,31 +1,18 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { FiAlignLeft, FiArrowLeft, FiArrowRight, FiChevronRight, FiMaximize, FiMinimize, FiMoon, FiPlus, FiSun, } from "react-icons/fi";
-import LanguagesModal from './LanguagesModal';
-import NotificationsModal from './NotificationsModal';
 import ProfileModal from './ProfileModal';
-import SearchModal from './SearchModal';
-import TimesheetsModal from './TimesheetsModal';
 import HeaderDropDownModal from './HeaderDropDownModal';
-import MegaMenu from './megaManu/MegaMenu';
 import { NavigationContext } from '../../../contentApi/navigationProvider';
 
 
 const Header = () => {
     const { navigationOpen, setNavigationOpen } = useContext(NavigationContext)
-    const [openMegaMenu, setOpenMegaMenu] = useState(false)
     const [navigationExpend, setNavigationExpend] = useState(false)
     const miniButtonRef = useRef(null);
     const expendButtonRef = useRef(null);
 
 
-    useEffect(() => {
-        if (openMegaMenu) {
-            document.documentElement.classList.add("nxl-lavel-mega-menu-open")
-        }
-        else {
-            document.documentElement.classList.remove("nxl-lavel-mega-menu-open")
-        }
-    }, [openMegaMenu])
+    
 
     const handleThemeMode = (type) => {
         if (type === "dark") {
@@ -157,13 +144,6 @@ const Header = () => {
                             <FiArrowRight size={24} />
                         </a>
                     </div>
-                    {/* <!--! [End] nxl-navigation-toggle !-->
-                    <!--! [Start] nxl-lavel-mega-menu-toggle !--> */}
-                    <div className="nxl-lavel-mega-menu-toggle d-flex d-lg-none">
-                        <a href="#" onClick={(e) => {e.preventDefault(), setOpenMegaMenu(true)}} id="nxl-lavel-mega-menu-open">
-                            <FiAlignLeft size={24} />
-                        </a>
-                    </div>
                     {/* <!--! [End] nxl-lavel-mega-menu-toggle !-->
                     <!--! [Start] nxl-lavel-mega-menu !--> */}
                     <div className="nxl-drp-link nxl-lavel-mega-menu">
@@ -173,19 +153,12 @@ const Header = () => {
                                 <span>Back</span>
                             </a>
                         </div>
-                        {/* <!--! [Start] nxl-lavel-mega-menu-wrapper !--> */}
-                        <div className="nxl-lavel-mega-menu-wrapper d-flex gap-3">
-                            <HeaderDropDownModal />
-                            <MegaMenu />
-                        </div>
                     </div>
                 </div>
                 {/* <!--! [End] Header Left !-->
                 <!--! [Start] Header Right !--> */}
                 <div className="header-right ms-auto">
                     <div className="d-flex align-items-center">
-                        <SearchModal />
-                        <LanguagesModal />
                         <div className="nxl-h-item d-none d-sm-flex" >
                             <div className="full-screen-switcher">
                                 <span className="nxl-head-link me-0">
@@ -202,8 +175,6 @@ const Header = () => {
                                 <FiSun size={20} />
                             </div>
                         </div>
-                        <TimesheetsModal />
-                        <NotificationsModal />
                         <ProfileModal />
                     </div>
                 </div>

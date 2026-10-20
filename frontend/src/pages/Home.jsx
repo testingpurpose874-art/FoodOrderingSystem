@@ -1,8 +1,6 @@
 import React from 'react'
 import SiteOverviewStatistics from '@/components/widgetsStatistics/SiteOverviewStatistics'
-import SalesMiscellaneous from '@/components/widgetsMiscellaneous/SalesMiscellaneous'
 import Footer from '@/components/shared/Footer'
-import { projectsDataTwo } from '@/utils/fackData/projectsDataTwo'
 
 const Home = () => {
     return (
@@ -10,7 +8,6 @@ const Home = () => {
             <div className='main-content'>
                 <div className='row'>
                     <SiteOverviewStatistics />
-                    <SalesMiscellaneous isFooterShow={true} dataList={projectsDataTwo} />
                 </div>
             </div>
             <Footer />
